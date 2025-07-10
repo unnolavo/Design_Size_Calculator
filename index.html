@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design Size Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Design Size Calculator</h1>
+    <div class="selectors">
+      <label for="unit">Choose Unit:</label>
+      <select id="unit">
+        <option value="">--Please choose--</option>
+        <option value="in">Inches</option>
+        <option value="cm">Centimeters</option>
+      </select>
+      <label for="side">Choose Side:</label>
+      <select id="side">
+        <option value="">--Please choose--</option>
+        <option value="width">Width</option>
+        <option value="height">Height</option>
+      </select>
+    </div>
+
+    <div id="calculators-container">
+      <!-- Specialized calculators will be inserted here by JS -->
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
