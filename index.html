@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Design Size Calculator</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    select, input {
+      margin-bottom: 10px;
+      width: 100%;
+      padding: 8px;
+      font-size: 1em;
+    }
+    .diagram {
+      margin: 20px 0;
+      text-align: center;
+    }
+    .diagram .line {
+      height: 6px;
+      background-color: #ccc;
+      position: relative;
+      margin: 20px 0;
+    }
+    .diagram .line::before {
+      content: "TRUE FULL SIZE";
+      position: absolute;
+      top: -20px;
+      left: 0;
+      font-size: 0.8em;
+    }
+    .diagram .result-line {
+      background-color: #4caf50;
+      margin: 20px auto;
+    }
+    .instructions {
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 10px;
+      display: none;
+      margin-bottom: 10px;
+    }
+    .toggle-btn {
+      background: none;
+      border: none;
+      color: blue;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    .result {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Design Size Calculator</h1>
+
+  <label for="unit">Choose Unit:</label>
+  <select id="unit">
+    <option value="cm">Centimeters</option>
+    <option value="in">Inches</option>
+  </select>
+
+  <label for="dimension">Choose Dimension:</label>
+  <select id="dimension">
+    <option value="width">Width</option>
+    <option value="height">Height</option>
+  </select>
+
+  <button class="toggle-btn" onclick="toggleInstructions()">Instructions (click to expand)</button>
+  <div class="instructions" id="instructions-box"></div>
+
+  <label id="labelA" for="actual">TRUE FULL SIZE:</label>
+  <input type="number" id="actual" placeholder="e.g. 40">
+
+  <label id="labelS" for="screen">On-screen FULL SIZE:</label>
+  <input type="number" id="screen" placeholder="e.g. 7">
+
+  <label id="labelE" for="element">On-screen DESIGN SIZE:</label>
+  <input type="number" id="element" placeholder="e.g. 2">
+
+  <button onclick="calculate()">Calculate</button>
+
+  <div class="result" id="result"></div>
+
+  <div class="diagram" id="diagram">
+    <div class="line" id="fullLine"></div>
+    <div class="result-line" id="resultLine"></div>
+  </div>
+
+  <script>
+    const instructions = {
+      'cm_width': `1. Enter the actual measurement of the TRUE FULL WIDTH...`,
+      'cm_height': `1. Enter the actual measurement of the TRUE FULL HEIGHT...`,
+      'in_width': `1. Enter the actual measurement of the TRUE FULL WIDTH...`,
+      'in_height': `1. Enter the actual measurement of the TRUE FULL HEIGHT...`
+    };
+
+    function toggleInstructions() {
+      const box = document.getElementById("instructions-box");
+      const button = document.querySelector(".toggle-btn");
+      if (box.style.display === "none") {
+        box.style.display = "block";
+        button.textContent = "Instructions (click to collapse)";
+      } else {
+        box.style.display = "none";
+        button.textContent = "Instructions (click to expand)";
+      }
+    }
+
+    function updateLabels() {
+      const unit = document.getElementById("unit").value;
+      const dimension = document.getElementById("dimension").value;
+      const key = `${unit}_${dimension}`;
+      document.getElementById("instructions-box").innerHTML = instructions[key];
+
+      document.getElementById("labelA").textContent = `TRUE FULL ${dimension.toUpperCase()} (${unit})`;
+      document.getElementById("labelS").textContent = `On-screen FULL ${dimension.toUpperCase()} (${unit})`;
+      document.getElementById("labelE").textContent = `On-screen DESIGN ${dimension.toUpperCase()} (${unit})`;
+    }
+
+    function calculate() {
+      const A = parseFloat(document.getElementById("actual").value);
+      const S = parseFloat(document.getElementById("screen").value);
+      const E = parseFloat(document.getElementById("element").value);
+      const unit = document.getElementById("unit").value;
+      const dimension = document.getElementById("dimension").value;
+
+      if (isNaN(A) || isNaN(S) || isNaN(E) || S === 0) {
+        document.getElementById("result").textContent = "Please enter valid values.";
+        return;
+      }
+
+      const ratio = E / S;
+      const result = A * ratio;
+      const formatted = result.toFixed(2) + " " + unit;
+      const label = dimension === "width" ? "ESTIMATED TRUE DESIGN WIDTH: " : "ESTIMATED TRUE DESIGN HEIGHT: ";
+      document.getElementById("result").textContent = label + formatted;
+
+      const resultLine = document.getElementById("resultLine");
+      if (dimension === "width") {
+        resultLine.style.width = (ratio * 100) + "%";
+        resultLine.style.height = "6px";
+      } else {
+        resultLine.style.height = "150px";
+        resultLine.style.width = "6px";
+      }
+    }
+
+    document.getElementById("unit").addEventListener("change", updateLabels);
+    document.getElementById("dimension").addEventListener("change", updateLabels);
+    window.onload = updateLabels;
+  </script>
+</body>
+</html>
