@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zazzle Design Size Tool</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<h1>Zazzle Design Size Tool</h1>
+
+<div class="tab-container">
+  <button class="tab-button" onclick="showTab('existing')">Estimate Existing Design</button>
+  <button class="tab-button" onclick="showTab('required')">Estimate Required Design</button>
+</div>
+
+<!-- EXISTING DESIGN TAB -->
+<div id="existing" class="tab active">
+  <h2>Estimate Existing Design</h2>
+  <label>Actual Product Width (cm):</label>
+  <input id="actualWidth" type="number" />
+
+  <label>On‑Screen Product Width (px):</label>
+  <input id="onscreenWidth" type="number" />
+
+  <label>On‑Screen Design Width (px):</label>
+  <input id="designWidthPx" type="number" />
+
+  <button onclick="calculateExisting()">Calculate</button>
+  <div id="existingResult" class="result"></div>
+</div>
+
+<!-- REQUIRED DESIGN TAB -->
+<div id="required" class="tab">
+  <h2>Estimate Required Design</h2>
+  <label>Actual Product Width (cm):</label>
+  <input id="actualWidthReq" type="number" />
+
+  <label>On‑Screen Product Width (px):</label>
+  <input id="onscreenWidthReq" type="number" />
+
+  <label>Required Real‑Life Design Width (cm):</label>
+  <input id="requiredDesignCm" type="number" />
+
+  <div class="note">REQUIRED ON‑SCREEN DESIGN WIDTH/HEIGHT:</div>
+
+  <button onclick="calculateRequired()">Calculate</button>
+  <div id="requiredResult" class="result"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

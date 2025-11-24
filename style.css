@@ -1,0 +1,18 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+.tab { display: none; }
+.tab.active { display: block; }
+.tab-container { margin-bottom: 20px; }
+.tab-button {
+  padding: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.result {
+  margin-top: 15px;
+  font-weight: bold;
+}
