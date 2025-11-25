@@ -21,7 +21,7 @@ input {
   margin: 10px 0;
 }
 
-/* ↓ Reduced spacing above button (20px → 12px) */
+/* Reduced spacing above button */
 button {
   padding: 10px 15px;
   margin-top: 12px;
@@ -42,10 +42,8 @@ canvas {
   border: 1px solid #ccc;
 }
 
-/* Pair card layout for Known/Unknown groups */
-
-/* ❗ FIXED selector: pairs-container (was pair-container) */
-/* ↓ Reduced spacing below the pairs-container (20px → 12px) */
+/* Pair card layout */
+/* FIXED: must match HTML class EXACTLY */
 .pairs-container {
   display: flex;
   flex-wrap: wrap;
@@ -54,7 +52,6 @@ canvas {
   margin-bottom: 12px;
 }
 
-/* ↓ Reduced spacing between rectangles (20px → 12px) */
 .pair-card {
   flex: 1 1 260px;
   background-color: #ffffff;
@@ -89,7 +86,6 @@ canvas {
   font-weight: 500;
 }
 
-/* Input spacing fix */
 .input-group input {
   width: calc(100% - 8px);
   padding: 6px 8px;
@@ -97,7 +93,6 @@ canvas {
   border: 1px solid #ccc;
 }
 
-/* Result styled like an input field */
 .result-box {
   padding: 8px 10px;
   min-height: 36px;
