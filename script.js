@@ -13,15 +13,20 @@ function updateLabels() {
   const unit = unitSelect.value;
   const unitText = unit === "cm" ? "cm" : "in";
 
-  labelA.innerText = `TRUE FULL LENGTH (${unitText})`;
-  labelS.innerText = `On-screen FULL LENGTH (${unitText})`;
+  // Known Pair labels
+  labelA.innerText = `Known Real-Life Length (${unitText})`;
+  labelS.innerText = `Corresponding On-Screen Length (${unitText})`;
+
+  // Unknown Pair label
   labelE.innerText = `On-screen DESIGN LENGTH (${unitText})`;
 
+  // Result label text
   result.innerText = `ESTIMATED TRUE DESIGN LENGTH: –`;
 
-  const inst = `1. Enter the actual measurement of the TRUE FULL LENGTH (${unitText}) – typically found on the product page or size chart.
-2. Measure and enter the on-screen FULL LENGTH (${unitText}) using a physical ruler held up to your screen.
-3. Measure and enter the on-screen DESIGN ELEMENT LENGTH (${unitText}) using the same ruler.
+  // Instructions
+  const inst = `1. Enter the Known Real-Life Length (${unitText}) – for example, the actual product side measurement from the product page or size chart.
+2. Measure and enter the Corresponding On-Screen Length (${unitText}) using a physical ruler held up to your screen.
+3. Measure and enter the On-screen DESIGN LENGTH (${unitText}) using the same ruler.
 4. Click "Calculate" to see the ESTIMATED TRUE DESIGN LENGTH.`;
   instructionText.innerText = inst;
 }
