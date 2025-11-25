@@ -18,14 +18,16 @@
       </select>
     </div>
 
+    <!-- Instructions collapsible -->
     <div class="collapsible">
       <h3 onclick="toggleInstructions()">Instructions (click to expand/collapse)</h3>
-      <div id="instructionText" class="content"></div>
+      <div id="instructionText" class="content">
+        <!-- Filled dynamically by script.js -->
+      </div>
     </div>
 
     <form id="calcForm">
       <div class="pairs-container">
-
         <!-- Known Measure -->
         <div class="pair-card">
           <h3 class="pair-title">Known Measure</h3>
@@ -55,13 +57,21 @@
             </div>
           </div>
         </div>
-
       </div>
 
       <button type="submit">Calculate</button>
     </form>
 
-    <canvas id="diagramCanvas" width="400" height="400"></canvas>
+    <!-- Diagram collapsible -->
+    <div class="collapsible">
+      <h3 onclick="toggleDiagram()">
+        Known vs Unknown <span id="diagramArrow">▼</span>
+      </h3>
+      <div id="diagramWrapper" class="content">
+        <canvas id="diagramCanvas" width="400" height="400"></canvas>
+      </div>
+    </div>
+
   </div>
 
   <script src="script.js"></script>
