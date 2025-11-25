@@ -18,15 +18,15 @@ function updateLabels() {
   labelS.innerText = `Corresponding On-Screen Length (${unitText})`;
 
   // Unknown Pair label
-  labelE.innerText = `On-screen DESIGN LENGTH (${unitText})`;
+  labelE.innerText = `On-screen Length in Question (${unitText})`;
 
   // Result label text
   result.innerText = `ESTIMATED TRUE DESIGN LENGTH: –`;
 
   // Instructions
-  const inst = `1. Enter the Known Real-Life Length (${unitText}) – for example, the actual product side measurement from the product page or size chart.
+  const inst = `1. Enter the Known Real-Life Length (${unitText}) using the actual product side measurement from the product page or size chart.
 2. Measure and enter the Corresponding On-Screen Length (${unitText}) using a physical ruler held up to your screen.
-3. Measure and enter the On-screen DESIGN LENGTH (${unitText}) using the same ruler.
+3. Measure and enter the On-screen Length in Question (${unitText}) using the same ruler.
 4. Click "Calculate" to see the ESTIMATED TRUE DESIGN LENGTH.`;
   instructionText.innerText = inst;
 }
@@ -44,15 +44,17 @@ form.addEventListener("submit", function (e) {
   const S = parseFloat(document.getElementById("screen").value);
   const E = parseFloat(document.getElementById("element").value);
 
-  if (S === 0) {
-    alert("On-screen full measurement cannot be zero.");
+  if (isNaN(A) || isNaN(S) || isNaN(E) || A <= 0 || S <= 0 || E <= 0) {
+    result.innerText = "Please enter valid positive numbers for all fields.";
     return;
   }
 
+  // Core proportional formula: true size of design element
+  const calc = (E * A) / S;
+
   const unit = unitSelect.value;
-  const calc = (A * E) / S;
-  let convertedValue;
   let displayText;
+  let convertedValue;
 
   if (unit === "cm") {
     convertedValue = (calc / 2.54).toFixed(2);
@@ -72,21 +74,36 @@ form.addEventListener("submit", function (e) {
   const fullLength = maxLength;
   const designLength = (E / S) * fullLength;
 
-  ctx.lineWidth = 4;
-
-  // Full length (gray)
-  ctx.strokeStyle = "gray";
+  // Draw baseline for full product side
   ctx.beginPath();
   ctx.moveTo(margin, canvas.height / 2);
   ctx.lineTo(margin + fullLength, canvas.height / 2);
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 2;
   ctx.stroke();
 
-  // Design length (red)
-  ctx.strokeStyle = "red";
+  // Draw bracket/line for design element
   ctx.beginPath();
-  ctx.moveTo(margin, canvas.height / 2);
-  ctx.lineTo(margin + designLength, canvas.height / 2);
+  ctx.moveTo(margin, canvas.height / 2 + 40);
+  ctx.lineTo(margin + designLength, canvas.height / 2 + 40);
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 4;
   ctx.stroke();
+
+  // Labels on the diagram
+  ctx.font = "14px Arial";
+  ctx.fillStyle = "black";
+
+  ctx.fillText("Full Product Side", margin, canvas.height / 2 - 10);
+
+  const diagramLabel =
+    unit === "cm"
+      ? `Estimated Design: ${calc.toFixed(2)} cm`
+      : `Estimated Design: ${calc.toFixed(2)} in`;
+  ctx.fillText(diagramLabel, margin, canvas.height / 2 + 70);
 });
 
+// Initialize labels & instructions on load
 updateLabels();
+toggleInstructions();
+toggleInstructions();
