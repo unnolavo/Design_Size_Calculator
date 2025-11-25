@@ -13,21 +13,20 @@ function updateLabels() {
   const unit = unitSelect.value;
   const unitText = unit === "cm" ? "cm" : "in";
 
-  // Known Pair labels
   labelA.innerText = `Known Real-Life Length (${unitText})`;
   labelS.innerText = `Corresponding On-Screen Length (${unitText})`;
-
-  // Unknown Pair label
   labelE.innerText = `On-screen Length in Question (${unitText})`;
 
-  // Result label text
-  result.innerText = `ESTIMATED TRUE DESIGN LENGTH: –`;
+  // EMPTY result box on every unit change
+  result.innerText = "";
 
-  // Instructions
-  const inst = `1. Enter the Known Real-Life Length (${unitText}) using the actual product side measurement from the product page or size chart.
-2. Measure and enter the Corresponding On-Screen Length (${unitText}) using a physical ruler held up to your screen.
-3. Measure and enter the On-screen Length in Question (${unitText}) using the same ruler.
-4. Click "Calculate" to see the ESTIMATED TRUE DESIGN LENGTH.`;
+  const inst = `
+1. Enter the Known Real-Life Length (${unitText}) — taken from the product page or size chart.
+2. Measure the Corresponding On-Screen Length (${unitText}) using a ruler.
+3. Measure the On-screen Length in Question (${unitText}).
+4. Click "Calculate" to find the Corresponding Real-Life Length in Question.
+  `;
+
   instructionText.innerText = inst;
 }
 
@@ -49,32 +48,28 @@ form.addEventListener("submit", function (e) {
     return;
   }
 
-  // Core proportional formula: true size of design element
   const calc = (E * A) / S;
-
   const unit = unitSelect.value;
+
   let displayText;
   let convertedValue;
 
   if (unit === "cm") {
     convertedValue = (calc / 2.54).toFixed(2);
-    displayText = `${calc.toFixed(2)} cm / ${convertedValue} in`;
+    displayText = `${calc.toFixed(2)} cm   |   ${convertedValue} in`;
   } else {
     convertedValue = (calc * 2.54).toFixed(2);
-    displayText = `${calc.toFixed(2)} in / ${convertedValue} cm`;
+    displayText = `${calc.toFixed(2)} in   |   ${convertedValue} cm`;
   }
 
-  result.innerText = `ESTIMATED TRUE DESIGN LENGTH: ${displayText}`;
+  result.innerText = displayText;
 
-  // Clear and redraw diagram
+  // Draw diagram
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
   const margin = 50;
-  const maxLength = canvas.width - margin * 2;
-  const fullLength = maxLength;
+  const fullLength = canvas.width - margin * 2;
   const designLength = (E / S) * fullLength;
 
-  // Draw baseline for full product side
   ctx.beginPath();
   ctx.moveTo(margin, canvas.height / 2);
   ctx.lineTo(margin + fullLength, canvas.height / 2);
@@ -82,7 +77,6 @@ form.addEventListener("submit", function (e) {
   ctx.lineWidth = 2;
   ctx.stroke();
 
-  // Draw bracket/line for design element
   ctx.beginPath();
   ctx.moveTo(margin, canvas.height / 2 + 40);
   ctx.lineTo(margin + designLength, canvas.height / 2 + 40);
@@ -90,20 +84,19 @@ form.addEventListener("submit", function (e) {
   ctx.lineWidth = 4;
   ctx.stroke();
 
-  // Labels on the diagram
   ctx.font = "14px Arial";
   ctx.fillStyle = "black";
-
   ctx.fillText("Full Product Side", margin, canvas.height / 2 - 10);
 
   const diagramLabel =
     unit === "cm"
       ? `Estimated Design: ${calc.toFixed(2)} cm`
       : `Estimated Design: ${calc.toFixed(2)} in`;
+
   ctx.fillText(diagramLabel, margin, canvas.height / 2 + 70);
 });
 
-// Initialize labels & instructions on load
+// Initialize
 updateLabels();
 toggleInstructions();
 toggleInstructions();
