@@ -101,8 +101,12 @@ form.addEventListener("submit", function (e) {
   ctx.fillStyle = "black";
   ctx.textAlign = "left";
 
-  // Top line label
-  ctx.fillText("Known Measure", margin, canvas.height / 2 - 10);
+  // Top line label, now with real-life known length
+  const knownLabel =
+    unit === "cm"
+      ? `Known Measure: ${A.toFixed(2)} cm`
+      : `Known Measure: ${A.toFixed(2)} in`;
+  ctx.fillText(knownLabel, margin, canvas.height / 2 - 10);
 
   // Bottom line label with value
   const diagramLabel =
