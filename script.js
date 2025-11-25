@@ -13,21 +13,21 @@ function updateLabels() {
   const unit = unitSelect.value;
   const unitText = unit === "cm" ? "cm" : "in";
 
-  // Known Pair labels
+  // Known Measure labels
   labelA.innerText = `Known Real-Life Length (${unitText})`;
   labelS.innerText = `Corresponding On-Screen Length (${unitText})`;
 
-  // Unknown Pair label
-  labelE.innerText = `On-screen DESIGN LENGTH (${unitText})`;
+  // Unknown Measure label
+  labelE.innerText = `On-Screen Length in Question (${unitText})`;
 
-  // Result label text
-  result.innerText = `ESTIMATED TRUE DESIGN LENGTH: –`;
+  // Empty the result box on unit change
+  result.innerText = "";
 
   // Instructions
-  const inst = `1. Enter the Known Real-Life Length (${unitText}) – for example, the actual product side measurement from the product page or size chart.
-2. Measure and enter the Corresponding On-Screen Length (${unitText}) using a physical ruler held up to your screen.
-3. Measure and enter the On-screen DESIGN LENGTH (${unitText}) using the same ruler.
-4. Click "Calculate" to see the ESTIMATED TRUE DESIGN LENGTH.`;
+  const inst = `1. Enter the Known Real-Life Length (${unitText}) — taken from the product specs.
+2. Measure the Corresponding On-Screen Length (${unitText}) using a physical ruler.
+3. Measure the On-Screen Length in Question (${unitText}) using the same ruler.
+4. Click "Calculate" to see the Estimated Real-Life Length.`;
   instructionText.innerText = inst;
 }
 
@@ -62,9 +62,10 @@ form.addEventListener("submit", function (e) {
     displayText = `${calc.toFixed(2)} in / ${convertedValue} cm`;
   }
 
-  result.innerText = `ESTIMATED TRUE DESIGN LENGTH: ${displayText}`;
+  // Now only show the values — label already exists above
+  result.innerText = displayText;
 
-  // Clear and redraw diagram
+  // Diagram
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   const margin = 50;
