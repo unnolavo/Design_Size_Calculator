@@ -19,4 +19,59 @@
     </div>
 
     <div class="collapsible">
-      <h3 onclic
+      <h3 onclick="toggleInstructions()">Instructions (click to expand/collapse)</h3>
+      <div id="instructionText" class="content">
+        <!-- Filled dynamically by script.js -->
+      </div>
+    </div>
+
+    <form id="calcForm">
+      <div class="pairs-container">
+
+        <!-- Known Measure -->
+        <div class="pair-card">
+          <h3 class="pair-title">Known Measure</h3>
+          <div class="pair-body">
+
+            <div class="input-group">
+              <label id="labelA" for="actual">Known Real-Life Length (in):</label>
+              <input type="number" id="actual" required step="any" />
+            </div>
+
+            <div class="input-group">
+              <label id="labelS" for="screen">Corresponding On-Screen Length (in):</label>
+              <input type="number" id="screen" required step="any" />
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Unknown Measure -->
+        <div class="pair-card">
+          <h3 class="pair-title">Unknown Measure</h3>
+          <div class="pair-body">
+
+            <div class="input-group">
+              <label id="labelE" for="element">On-Screen Length in Question (in):</label>
+              <input type="number" id="element" required step="any" />
+            </div>
+
+            <div class="input-group">
+              <label>Estimated Real-Life Length</label>
+              <div id="result" class="result-box">–</div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <button type="submit">Calculate</button>
+    </form>
+
+    <canvas id="diagramCanvas" width="400" height="400"></canvas>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
