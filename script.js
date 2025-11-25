@@ -69,11 +69,18 @@ form.addEventListener("submit", function (e) {
 
   // Draw diagram
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   const margin = 50;
   const fullLength = canvas.width - margin * 2;
   const designLength = (E / S) * fullLength;
 
-  // Baseline
+  // Title at top of canvas
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "black";
+  ctx.textAlign = "left";
+  ctx.fillText("Known Measure vs Unknown Measure", margin, 30);
+
+  // Baseline – Known Measure
   ctx.beginPath();
   ctx.moveTo(margin, canvas.height / 2);
   ctx.lineTo(margin + fullLength, canvas.height / 2);
@@ -81,7 +88,7 @@ form.addEventListener("submit", function (e) {
   ctx.lineWidth = 2;
   ctx.stroke();
 
-  // Design element line
+  // Design element line – Unknown Measure
   ctx.beginPath();
   ctx.moveTo(margin, canvas.height / 2 + 40);
   ctx.lineTo(margin + designLength, canvas.height / 2 + 40);
@@ -92,12 +99,16 @@ form.addEventListener("submit", function (e) {
   // Labels
   ctx.font = "14px Arial";
   ctx.fillStyle = "black";
-  ctx.fillText("Full Product Side", margin, canvas.height / 2 - 10);
+  ctx.textAlign = "left";
 
+  // Top line label
+  ctx.fillText("Known Measure", margin, canvas.height / 2 - 10);
+
+  // Bottom line label with value
   const diagramLabel =
     unit === "cm"
-      ? `Estimated Design: ${calc.toFixed(2)} cm`
-      : `Estimated Design: ${calc.toFixed(2)} in`;
+      ? `Unknown Measure: ${calc.toFixed(2)} cm`
+      : `Unknown Measure: ${calc.toFixed(2)} in`;
 
   ctx.fillText(diagramLabel, margin, canvas.height / 2 + 70);
 });
