@@ -17,15 +17,17 @@ function updateLabels() {
   labelS.innerText = `Corresponding On-Screen Length (${unitText})`;
   labelE.innerText = `On-screen Length in Question (${unitText})`;
 
-  // EMPTY result box on every unit change
+  // Clear result box when switching units
   result.innerText = "";
 
-  const inst = `
-1. Enter the Known Real-Life Length (${unitText}) — taken from the product page or size chart.
-2. Measure the Corresponding On-Screen Length (${unitText}) using a ruler.
-3. Measure the On-screen Length in Question (${unitText}).
-4. Click "Calculate" to find the Corresponding Real-Life Length in Question.
-  `;
+  const inst =
+`1. Find the ratio of real-life to on-screen:
+   • Enter one Known Real-Life Length (${unitText}) — taken from the product page / Z-Saurus.
+   • Measure the above Corresponding On-Screen Length (${unitText}) using a ruler.
+
+2. Find the real-life length of any on-screen length:
+   • Measure the On-screen Length in Question (${unitText}).
+   • Click "Calculate" to find the Corresponding Real-Life Length in Question.`;
 
   instructionText.innerText = inst;
 }
@@ -48,6 +50,7 @@ form.addEventListener("submit", function (e) {
     return;
   }
 
+  // Core proportional calculation
   const calc = (E * A) / S;
   const unit = unitSelect.value;
 
@@ -70,6 +73,7 @@ form.addEventListener("submit", function (e) {
   const fullLength = canvas.width - margin * 2;
   const designLength = (E / S) * fullLength;
 
+  // Baseline
   ctx.beginPath();
   ctx.moveTo(margin, canvas.height / 2);
   ctx.lineTo(margin + fullLength, canvas.height / 2);
@@ -77,6 +81,7 @@ form.addEventListener("submit", function (e) {
   ctx.lineWidth = 2;
   ctx.stroke();
 
+  // Design element line
   ctx.beginPath();
   ctx.moveTo(margin, canvas.height / 2 + 40);
   ctx.lineTo(margin + designLength, canvas.height / 2 + 40);
@@ -84,6 +89,7 @@ form.addEventListener("submit", function (e) {
   ctx.lineWidth = 4;
   ctx.stroke();
 
+  // Labels
   ctx.font = "14px Arial";
   ctx.fillStyle = "black";
   ctx.fillText("Full Product Side", margin, canvas.height / 2 - 10);
@@ -96,7 +102,7 @@ form.addEventListener("submit", function (e) {
   ctx.fillText(diagramLabel, margin, canvas.height / 2 + 70);
 });
 
-// Initialize
+// Initialize on page load
 updateLabels();
 toggleInstructions();
 toggleInstructions();
