@@ -32,4 +32,78 @@ button {
 }
 .content {
   display: none;
-  ma
+  margin-top: 10px;
+  background: #eee;
+  padding: 10px;
+}
+canvas {
+  margin-top: 20px;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+}
+
+/* Pair card layout for Known/Unknown groups */
+
+/* ❗ FIXED selector: pairs-container (was pair-container) */
+/* ↓ Reduced spacing below the pairs-container (20px → 12px) */
+.pairs-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 12px;
+}
+
+/* ↓ Reduced spacing between rectangles (20px → 12px) */
+.pair-card {
+  flex: 1 1 260px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  padding: 15px 18px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  margin-bottom: 12px;
+}
+
+.pair-title {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.pair-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.input-group label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Input spacing fix */
+.input-group input {
+  width: calc(100% - 8px);
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Result styled like an input field */
+.result-box {
+  padding: 8px 10px;
+  min-height: 36px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  display: flex;
+  align-items: center;
+}
