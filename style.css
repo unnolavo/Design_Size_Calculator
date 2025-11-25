@@ -22,6 +22,9 @@ input {
 }
 button {
   padding: 10px 15px;
+
+  /* ⭐ NEW: spacing above the button */
+  margin-top: 20px;
 }
 .collapsible h3 {
   cursor: pointer;
@@ -54,6 +57,9 @@ canvas {
   border: 1px solid #ddd;
   padding: 15px 18px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+
+  /* ⭐ NEW: vertical spacing between first and second card */
+  margin-bottom: 20px;
 }
 
 .pair-title {
@@ -80,9 +86,9 @@ canvas {
   font-weight: 500;
 }
 
-/* ⭐ REAL FIX: shrink input width slightly so edge doesn't touch card border */
+/* ⭐ Updated input spacing fix */
 .input-group input {
-  width: calc(100% - 4px);
+  width: calc(100% - 8px);   /* increased from -4px → -8px */
   padding: 6px 8px;
   border-radius: 6px;
   border: 1px solid #ccc;
