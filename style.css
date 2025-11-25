@@ -38,7 +38,6 @@ canvas {
   border: 1px solid #ccc;
 }
 
-
 /* Pair card layout for Known/Unknown groups */
 .pair-container {
   display: flex;
@@ -53,8 +52,7 @@ canvas {
   background-color: #ffffff;
   border-radius: 12px;
   border: 1px solid #ddd;
-  /* CHANGED: added a bit more padding on the right only */
-  padding: 15px 22px 15px 18px; /* top, right, bottom, left */
+  padding: 15px 18px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.04);
 }
 
@@ -82,7 +80,9 @@ canvas {
   font-weight: 500;
 }
 
+/* ⭐ REAL FIX: shrink input width slightly so edge doesn't touch card border */
 .input-group input {
+  width: calc(100% - 4px);
   padding: 6px 8px;
   border-radius: 6px;
   border: 1px solid #ccc;
