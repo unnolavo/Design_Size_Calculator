@@ -17,7 +17,7 @@ function updateLabels() {
   labelS.innerText = `Corresponding On-Screen Length (${unitText})`;
   labelE.innerText = `On-screen Length in Question (${unitText})`;
 
-  // Clear result box when switching units
+  // Clear result box
   result.innerText = "";
 
   const inst =
@@ -36,20 +36,27 @@ unitSelect.addEventListener("change", updateLabels);
 
 function toggleInstructions() {
   const content = document.getElementById("instructionText");
-  content.style.display = content.style.display === "block" ? "none" : "block";
+  const arrow = document.getElementById("instructionsArrow");
+
+  if (content.style.display === "block") {
+    content.style.display = "none";
+    arrow.textContent = "▼";
+  } else {
+    content.style.display = "block";
+    arrow.textContent = "▲";
+  }
 }
 
-// NEW: toggle for the diagram collapsible
 function toggleDiagram() {
   const wrapper = document.getElementById("diagramWrapper");
   const arrow = document.getElementById("diagramArrow");
 
   if (wrapper.style.display === "block") {
     wrapper.style.display = "none";
-    if (arrow) arrow.textContent = "▼"; // collapsed
+    arrow.textContent = "▼";
   } else {
     wrapper.style.display = "block";
-    if (arrow) arrow.textContent = "▲"; // expanded
+    arrow.textContent = "▲";
   }
 }
 
@@ -88,13 +95,13 @@ form.addEventListener("submit", function (e) {
   const fullLength = canvas.width - margin * 2;
   const designLength = (E / S) * fullLength;
 
-  // Title at top of canvas
+  // Title
   ctx.font = "16px Arial";
   ctx.fillStyle = "black";
   ctx.textAlign = "left";
   ctx.fillText("Known Measure vs Unknown Measure", margin, 30);
 
-  // Baseline – Known Measure
+  // Top Line – Known Measure
   ctx.beginPath();
   ctx.moveTo(margin, canvas.height / 2);
   ctx.lineTo(margin + fullLength, canvas.height / 2);
@@ -102,7 +109,7 @@ form.addEventListener("submit", function (e) {
   ctx.lineWidth = 2;
   ctx.stroke();
 
-  // Design element line – Unknown Measure
+  // Bottom Line – Unknown Measure
   ctx.beginPath();
   ctx.moveTo(margin, canvas.height / 2 + 40);
   ctx.lineTo(margin + designLength, canvas.height / 2 + 40);
@@ -115,14 +122,13 @@ form.addEventListener("submit", function (e) {
   ctx.fillStyle = "black";
   ctx.textAlign = "left";
 
-  // Top line label with real-life known length
   const knownLabel =
     unit === "cm"
       ? `Known Measure: ${A.toFixed(2)} cm`
       : `Known Measure: ${A.toFixed(2)} in`;
+
   ctx.fillText(knownLabel, margin, canvas.height / 2 - 10);
 
-  // Bottom line label with value
   const diagramLabel =
     unit === "cm"
       ? `Unknown Measure: ${calc.toFixed(2)} cm`
@@ -134,9 +140,8 @@ form.addEventListener("submit", function (e) {
 // Initialize on page load
 updateLabels();
 
-// Start with instructions collapsed (same double-toggle trick as before)
+// Start Instructions collapsed (same double-toggle trick)
 toggleInstructions();
 toggleInstructions();
 
-// Diagram starts collapsed by default because .content has display:none in CSS.
-// Arrow starts as ▼ in the HTML.
+// Diagram collapsible starts collapsed automatically via CSS
