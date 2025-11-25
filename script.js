@@ -39,6 +39,20 @@ function toggleInstructions() {
   content.style.display = content.style.display === "block" ? "none" : "block";
 }
 
+// NEW: toggle for the diagram collapsible
+function toggleDiagram() {
+  const wrapper = document.getElementById("diagramWrapper");
+  const arrow = document.getElementById("diagramArrow");
+
+  if (wrapper.style.display === "block") {
+    wrapper.style.display = "none";
+    if (arrow) arrow.textContent = "▼"; // collapsed
+  } else {
+    wrapper.style.display = "block";
+    if (arrow) arrow.textContent = "▲"; // expanded
+  }
+}
+
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   const A = parseFloat(document.getElementById("actual").value);
@@ -101,7 +115,7 @@ form.addEventListener("submit", function (e) {
   ctx.fillStyle = "black";
   ctx.textAlign = "left";
 
-  // Top line label, now with real-life known length
+  // Top line label with real-life known length
   const knownLabel =
     unit === "cm"
       ? `Known Measure: ${A.toFixed(2)} cm`
@@ -119,5 +133,10 @@ form.addEventListener("submit", function (e) {
 
 // Initialize on page load
 updateLabels();
+
+// Start with instructions collapsed (same double-toggle trick as before)
 toggleInstructions();
 toggleInstructions();
+
+// Diagram starts collapsed by default because .content has display:none in CSS.
+// Arrow starts as ▼ in the HTML.
