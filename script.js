@@ -22,8 +22,8 @@ function updateLabels() {
 
   const inst =
 `1. Find the ratio of real-life to on-screen:
-   • Enter one Known Real-Life Length (${unitText}) — taken from the product page / Z-Saurus.
-   • Measure the above Corresponding On-Screen Length (${unitText}) using a ruler.
+   • Enter one Known Real-Life Length (${unitText}) — taken from product information.
+   • Measure its Corresponding On-Screen Length (${unitText}) using a ruler.
 
 2. Find the real-life length of any on-screen length:
    • Measure the On-screen Length in Question (${unitText}).
